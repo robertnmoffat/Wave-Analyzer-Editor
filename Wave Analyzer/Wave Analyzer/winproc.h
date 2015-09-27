@@ -1,0 +1,4 @@
+#pragma once
+#define PI 3.14159265359
+
+LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);

@@ -119,6 +119,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="Winproc.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="header.h" />
+    <ClInclude Include="winproc.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
