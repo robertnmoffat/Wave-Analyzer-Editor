@@ -1,14 +1,22 @@
-﻿Build started 9/26/2015 10:33:57 PM.
-     1>Project "F:\git\Wave-Analyzer-Editor\Wave Analyzer\Wave Analyzer\Wave Analyzer.vcxproj" on node 2 (Build target(s)).
+﻿Build started 2015-09-27 4:39:40 PM.
+     1>Project "C:\git repos\Wave-Analyzer-Editor\Wave Analyzer\Wave Analyzer\Wave Analyzer.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Winproc.cpp
+         C:\Program Files\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt MainWindow.cpp Winproc.cpp
+         MainWindow.cpp
+         Generating Code...
+         Compiling...
          Winproc.cpp
+     1>c:\git repos\wave-analyzer-editor\wave analyzer\wave analyzer\winproc.cpp(16): warning C4101: 'positionx': unreferenced local variable
+     1>c:\git repos\wave-analyzer-editor\wave analyzer\wave analyzer\winproc.cpp(17): warning C4101: 'positiony': unreferenced local variable
+         Generating Code...
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\git\Wave-Analyzer-Editor\Wave Analyzer\Debug\Wave Analyzer.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"F:\git\Wave-Analyzer-Editor\Wave Analyzer\Debug\Wave Analyzer.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\git\Wave-Analyzer-Editor\Wave Analyzer\Debug\Wave Analyzer.lib" /MACHINE:X86 Debug\MainWindow.obj
+         C:\Program Files\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\git repos\Wave-Analyzer-Editor\Wave Analyzer\Debug\Wave Analyzer.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\git repos\Wave-Analyzer-Editor\Wave Analyzer\Debug\Wave Analyzer.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\git repos\Wave-Analyzer-Editor\Wave Analyzer\Debug\Wave Analyzer.lib" /MACHINE:X86 Debug\FrequencyProc.obj
+         Debug\MainWindow.obj
+         Debug\TemporalProc.obj
          Debug\Winproc.obj
-         Wave Analyzer.vcxproj -> F:\git\Wave-Analyzer-Editor\Wave Analyzer\Debug\Wave Analyzer.exe
-     1>Done Building Project "F:\git\Wave-Analyzer-Editor\Wave Analyzer\Wave Analyzer\Wave Analyzer.vcxproj" (Build target(s)).
+         Wave Analyzer.vcxproj -> C:\git repos\Wave-Analyzer-Editor\Wave Analyzer\Debug\Wave Analyzer.exe
+     1>Done Building Project "C:\git repos\Wave-Analyzer-Editor\Wave Analyzer\Wave Analyzer\Wave Analyzer.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.67
+Time Elapsed 00:00:08.24

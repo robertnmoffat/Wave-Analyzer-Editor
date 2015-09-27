@@ -12,21 +12,41 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	PSTR szCmdLine, int iCmdShow)
 {
 	static TCHAR szAppName[] = TEXT("HelloWin");
+	static TCHAR szAppName2[] = TEXT("HelloWin2");
+	static TCHAR szAppName3[] = TEXT("HelloWin3");
 	HWND         hwnd;
 	HWND	     hwnd2;
+	HWND	     hbutton;
 	MSG          msg;
 	WNDCLASS     wndclass;
+	WNDCLASS     wndclass2;
+
+	PWINDOWSTRUCT pwdata;
+
+	pwdata = (PWINDOWSTRUCT)malloc(sizeof(WINDOWSTRUCT));
 
 	wndclass.style = CS_HREDRAW | CS_VREDRAW;
 	wndclass.lpfnWndProc = WndProc;
 	wndclass.cbClsExtra = 0;
-	wndclass.cbWndExtra = 0;
+	wndclass.cbWndExtra = sizeof(WINDOWSTRUCT);
 	wndclass.hInstance = hInstance;
 	wndclass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 	wndclass.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wndclass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	wndclass.lpszMenuName = NULL;
 	wndclass.lpszClassName = szAppName;
+
+	wndclass2.style = CS_HREDRAW | CS_VREDRAW;
+	wndclass2.lpfnWndProc = TemporalWndProc;
+	wndclass2.cbClsExtra = 0;
+	wndclass2.cbWndExtra = sizeof(WINDOWSTRUCT);
+	wndclass2.hInstance = hInstance;
+	wndclass2.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+	wndclass2.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wndclass2.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
+	wndclass2.lpszMenuName = NULL;
+	wndclass2.lpszClassName = szAppName2;
+
 
 	if (!RegisterClass(&wndclass))
 	{
@@ -36,51 +56,79 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	}
 
 	hwnd = CreateWindow(szAppName,                  // window class name
-		TEXT("The Hello Program"), // window caption
+		TEXT("Wave Analyzer"), // window caption
 		WS_OVERLAPPEDWINDOW,        // window style
 		XPOS,              // initial x position
 		YPOS,              // initial y position
-		DEFAULTHEIGHT*2,              // initial x size
-		DEFAULTWIDTH*2,              // initial y size
+		DEFAULTHEIGHT,              // initial x size
+		DEFAULTWIDTH,              // initial y size
 		NULL,                       // parent window handle
 		NULL,                       // window menu handle
 		hInstance,                  // program instance handle
 		NULL);                     // creation parameters
 
+	hbutton = CreateWindow("BUTTON", TEXT("Generate"), WS_CHILD|WS_VISIBLE, 70, 70, 80, 25, hwnd, NULL, (HINSTANCE)GetWindowLong(hwnd, GWL_HINSTANCE), 0);
+
 	ShowWindow(hwnd, iCmdShow);
 	UpdateWindow(hwnd);
 
-	hwnd2 = CreateWindow(szAppName,                  // window class name
+	wndclass.lpfnWndProc = TemporalWndProc;
+	wndclass.lpszClassName = szAppName2;
+
+	if (!RegisterClass(&wndclass))
+	{
+		MessageBox(NULL, TEXT("This program requires Windows NT!"),
+			szAppName2, MB_ICONERROR);
+		return 0;
+	}
+
+
+	hwnd2 = CreateWindow(szAppName2,                  // window class name
 		TEXT("Temporal"), // window caption
 		WS_OVERLAPPEDWINDOW,        // window style
-		XPOS,              // initial x position
-		YPOS,              // initial y position
+		XPOS-(DEFAULTWIDTH/2),              // initial x position
+		YPOS+HEIGHTOFFSET,              // initial y position
 		DEFAULTWIDTH,              // initial x size
 		DEFAULTHEIGHT,              // initial y size
-		hwnd,                       // parent window handle
+		NULL,                       // parent window handle
 		NULL,                       // window menu handle
 		hInstance,                  // program instance handle
 		NULL);                     // creation parameters
 
-	ShowWindow(hwnd2, iCmdShow);
-	UpdateWindow(hwnd);
+	ShowWindow(hwnd2, 0);
+	UpdateWindow(hwnd2);
 
-	hwnd2 = CreateWindow(szAppName,                  // window class name
+	pwdata->hTemWnd = hwnd2;	//setting temporal distplay window in the window data struct
+
+
+	wndclass.lpfnWndProc = FreqWndProc;
+	wndclass.lpszClassName = szAppName3;
+
+	if (!RegisterClass(&wndclass))
+	{
+		MessageBox(NULL, TEXT("This program requires Windows NT!"),
+			szAppName3, MB_ICONERROR);
+		return 0;
+	}
+
+	hwnd2 = CreateWindow(szAppName3,                  // window class name
 		TEXT("Frequency"), // window caption
 		WS_OVERLAPPEDWINDOW,        // window style
-		XPOS+DEFAULTWIDTH,              // initial x position
-		YPOS,              // initial y position
+		XPOS+(DEFAULTWIDTH/2),              // initial x position
+		YPOS+HEIGHTOFFSET,              // initial y position
 		DEFAULTWIDTH,              // initial x size
 		DEFAULTHEIGHT,              // initial y size
-		hwnd,                       // parent window handle
+		NULL,                       // parent window handle
 		NULL,                       // window menu handle
 		hInstance,                  // program instance handle
 		NULL);                     // creation parameters
 
-	ShowWindow(hwnd2, iCmdShow);
-	UpdateWindow(hwnd);
+	ShowWindow(hwnd2, 0);
+	UpdateWindow(hwnd2);
 
+	pwdata->hFreqWnd = hwnd2;
 
+	SetWindowLongPtr(hwnd, 0, (LONG)pwdata);
 
 	while (GetMessage(&msg, NULL, 0, 0))
 	{
@@ -89,4 +137,3 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	}
 	return msg.wParam;
 }
-

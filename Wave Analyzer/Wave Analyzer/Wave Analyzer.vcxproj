@@ -118,7 +118,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FrequencyProc.cpp" />
     <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="TemporalProc.cpp" />
     <ClCompile Include="Winproc.cpp" />
   </ItemGroup>
   <ItemGroup>
