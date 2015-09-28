@@ -31,27 +31,7 @@ LRESULT CALLBACK FreqWndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPar
 		DrawText(hdc, TEXT("Frequency"), -1, &rect,
 			DT_SINGLELINE | DT_CENTER | DT_VCENTER);
 
-		HPEN hPenOld;
-		HPEN hLinePen;
-		COLORREF qLineColor;
-		qLineColor = RGB(255, 0, 0);
-		hLinePen = CreatePen(PS_SOLID, 1, qLineColor);
-		hPenOld = (HPEN)SelectObject(hdc, hLinePen);
 
-
-
-		for (int i = 0; i < 100; i++) {
-			positionx = startx + (i);
-			positiony = starty + (sin(2 * PI * 5 * (i) / samples))*scale;//+ sin(2 * PI * 7 * (i) / 30))*scale;
-			MoveToEx(hdc, (int)oldx, (int)oldy, NULL);
-			LineTo(hdc, (int)positionx, (int)positiony);
-			oldx = positionx;
-			oldy = positiony;
-		}
-
-
-		SelectObject(hdc, hPenOld);
-		DeleteObject(hLinePen);
 
 		EndPaint(hwnd, &ps);
 		return 0;

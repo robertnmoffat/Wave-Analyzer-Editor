@@ -20,6 +20,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	int scale = 10;
 	int samples = 10;
 
+	int amplitude;
+	int frequency;
+	int sample;
+	int phase;
+
 	switch (message)
 	{
 	case WM_CREATE:
@@ -38,11 +43,22 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 
 	case WM_PAINT:
+		pwdata = (PWINDOWSTRUCT)GetWindowLongPtr(hwnd, 0);
+
 		hdc = BeginPaint(hwnd, &ps);
 
 		GetClientRect(hwnd, &rect);
 
-		DrawText(hdc, TEXT("Hello, Windows 98!"), -1, &rect,
+		
+
+		amplitude = pwdata->amplitude;
+		frequency = pwdata->frequency;
+		sample = pwdata->sampleRate;
+		phase = pwdata->phase;
+		
+		TCHAR formulaText[256];
+		wsprintf(formulaText, "%d %s %d %s %d %s %d", amplitude, "* sin(2PI * ", frequency, " * t/", sample, " + ", phase);
+		DrawText(hdc, TEXT(formulaText), -1, &rect,
 			DT_SINGLELINE | DT_CENTER | DT_VCENTER);
 
 		

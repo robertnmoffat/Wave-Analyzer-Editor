@@ -1,7 +1,7 @@
 #pragma once
 
 #define XPOS 400
-#define YPOS 100 
+#define YPOS 100
 #define DEFAULTWIDTH 400
 #define DEFAULTHEIGHT 400
 #define HEIGHTOFFSET 100

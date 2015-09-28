@@ -24,6 +24,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	PWINDOWSTRUCT pwdata;
 
 	pwdata = (PWINDOWSTRUCT)malloc(sizeof(WINDOWSTRUCT));
+	pwdata->amplitude = 0;
+	pwdata->frequency = 5;
+	pwdata->sampleRate = 10;
+	pwdata->phase = 0;
+
 
 	wndclass.style = CS_HREDRAW | CS_VREDRAW;
 	wndclass.lpfnWndProc = WndProc;
@@ -55,6 +60,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		return 0;
 	}
 
+
 	hwnd = CreateWindow(szAppName,                  // window class name
 		TEXT("Wave Analyzer"), // window caption
 		WS_OVERLAPPEDWINDOW,        // window style
@@ -67,6 +73,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		hInstance,                  // program instance handle
 		NULL);                     // creation parameters
 
+	SetWindowLongPtr(hwnd, 0, (LONG)pwdata);
+
 	hbutton = CreateWindow("BUTTON", TEXT("Generate"), WS_CHILD|WS_VISIBLE, 70, 70, 80, 25, hwnd, NULL, (HINSTANCE)GetWindowLong(hwnd, GWL_HINSTANCE), 0);
 
 	ShowWindow(hwnd, iCmdShow);
@@ -77,6 +85,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	if (!RegisterClass(&wndclass))
 	{
+
+		
 		MessageBox(NULL, TEXT("This program requires Windows NT!"),
 			szAppName2, MB_ICONERROR);
 		return 0;
