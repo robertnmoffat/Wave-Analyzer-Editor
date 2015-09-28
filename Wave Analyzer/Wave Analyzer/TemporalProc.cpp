@@ -8,14 +8,14 @@ LRESULT CALLBACK TemporalWndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 	PAINTSTRUCT ps;
 	RECT        rect;
 
-	double startx = 100;
+	double startx = 0;
 	double starty = 100;
 	double positionx;
-	double positiony;
-	double oldx = 100;
-	double oldy = 100;
-	int scale = 10;
-	int samples = 10;
+	long double positiony;
+	double oldx = startx;
+	double oldy = starty;
+	double scale = 50;
+	double samples = 10;
 
 	switch (message)
 	{
@@ -40,9 +40,13 @@ LRESULT CALLBACK TemporalWndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 
 
 
-		for (int i = 0; i < 100; i++) {
-			positionx = startx + (i);
-			positiony = starty + (sin(2 * PI * 5 * (i) / samples))*scale;//+ sin(2 * PI * 7 * (i) / 30))*scale;
+		for (int i = 0; i < 100*scale; i++) {
+			double t = (double)i / scale;
+			positionx = startx + (t*scale);
+			double insideSine = 2 * PI * 5 * t / samples;
+			double sined = sin(insideSine);
+			double scaledSine = sined*scale;
+			positiony = starty + scaledSine;//+ sin(2 * PI * 7 * (i) / 30))*scale;
 			MoveToEx(hdc, (int)oldx, (int)oldy, NULL);
 			LineTo(hdc, (int)positionx, (int)positiony);
 			oldx = positionx;
