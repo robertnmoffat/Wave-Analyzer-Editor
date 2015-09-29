@@ -28,6 +28,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	pwdata->frequency = 5;
 	pwdata->sampleRate = 10;
 	pwdata->phase = 0;
+	pwdata->samplesUsed = 0;
+	pwdata->sampleAmount = 20;
+
+	for (int i = 0; i < 1024; i++) {
+		pwdata->samples[i] = 0.0;
+	}
 
 
 	wndclass.style = CS_HREDRAW | CS_VREDRAW;
@@ -105,6 +111,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		hInstance,                  // program instance handle
 		NULL);                     // creation parameters
 
+	SetWindowLongPtr(hwnd2, 0, (LONG)pwdata);
+
 	ShowWindow(hwnd2, 0);
 	UpdateWindow(hwnd2);
 
@@ -132,6 +140,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		NULL,                       // window menu handle
 		hInstance,                  // program instance handle
 		NULL);                     // creation parameters
+
+	SetWindowLongPtr(hwnd2, 0, (LONG)pwdata);
 
 	ShowWindow(hwnd2, 0);
 	UpdateWindow(hwnd2);

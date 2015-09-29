@@ -1,6 +1,9 @@
 #include<windows.h>
 #include<math.h>
 #include "winproc.h"
+#include "header.h"
+
+
 
 LRESULT CALLBACK TemporalWndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -8,14 +11,18 @@ LRESULT CALLBACK TemporalWndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 	PAINTSTRUCT ps;
 	RECT        rect;
 
-	double startx = 0;
+	PWINDOWSTRUCT pwdata;
+
+	pwdata = (PWINDOWSTRUCT)GetWindowLongPtr(hwnd, 0);
+
+	double startx = 120;
 	double starty = 100;
 	double positionx;
 	long double positiony;
 	double oldx = startx;
 	double oldy = starty;
-	double scale = 50;
-	double samples = 10;
+	double scale = 10;
+	double samples;
 
 	switch (message)
 	{
@@ -24,6 +31,9 @@ LRESULT CALLBACK TemporalWndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 		return 0;
 
 	case WM_PAINT:
+
+		samples = (double)pwdata->sampleAmount;
+
 		hdc = BeginPaint(hwnd, &ps);
 
 		GetClientRect(hwnd, &rect);
@@ -40,13 +50,19 @@ LRESULT CALLBACK TemporalWndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 
 
 
-		for (int i = 0; i < 100*scale; i++) {
+		for (int i = 0; i < samples*scale; i++) {
 			double t = (double)i / scale;
 			positionx = startx + (t*scale);
 			double insideSine = 2 * PI * 5 * t / samples;
-			double sined = sin(insideSine);
+			double sined = sin(2 * PI * 5 * t / samples)+ sin(2 * PI * 2 * t / samples)+ sin(2 * PI * 7 * t / samples);
 			double scaledSine = sined*scale;
 			positiony = starty + scaledSine;//+ sin(2 * PI * 7 * (i) / 30))*scale;
+
+			if (i % (int)scale == 0) {
+				int tmp = pwdata->samplesUsed++;
+				pwdata->samples[tmp] = positiony;
+			}
+
 			MoveToEx(hdc, (int)oldx, (int)oldy, NULL);
 			LineTo(hdc, (int)positionx, (int)positiony);
 			oldx = positionx;
